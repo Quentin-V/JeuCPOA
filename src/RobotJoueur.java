@@ -12,12 +12,15 @@ public class RobotJoueur extends Agent {
 	RobotJoueur(Vector3d position, String name, Environnement env) {
 		super(position, name);
 		this.env = env;
+		this.setCanBeTraversed(true);
 		Thread t = new Thread(new ClavierCheck(this));
 		t.start();
 	}
 
 	public void performBehavior() {
-
+		if(anOtherAgentIsVeryNear() && getVeryNearAgent() instanceof RobotEnnemi) {
+			System.exit(0);
+		}
 	}
 
 	private void rotationGauche() {

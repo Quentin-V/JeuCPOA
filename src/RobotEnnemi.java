@@ -1,3 +1,4 @@
+import com.sun.j3d.utils.geometry.Cylinder;
 import simbad.sim.*;
 
 import javax.vecmath.Color3f;
@@ -5,24 +6,34 @@ import javax.vecmath.Vector3d;
 
 public class RobotEnnemi extends Agent {
 
-	RobotEnnemi(Vector3d position, String name) {
+	private boolean actif;
+	private double vitesse;
+
+	RobotEnnemi(double vitesse, Vector3d position, String name) {
 		super(position, name);
 		this.setColor(new Color3f(255, 0, 0));
-		//RangeSensorBelt sonar = RobotFactory.addSonarBeltSensor(this);
+		this.body = new Cylinder(3, 3);
+		this.body.setPickable(true);
+		this.body.setCollidable(true);
+		this.actif = true;
+		this.vitesse = vitesse;
 	}
 	public void performBehavior() {
-		this.setTranslationalVelocity(1);
+
+		if(this.actif)
+			this.setTranslationalVelocity(this.vitesse);
+		else
+			this.setTranslationalVelocity(0);
+
 		if(this.getCounter() == 1) {
 			rotateToJoueur();
 		}
-		/*
-		if(this.sonar.hasHit(0)) {
-			this.moveToPosition(new Vector3d(1000, 1000, 1000));
+
+		if(anOtherAgentIsVeryNear() && this.getVeryNearAgent() instanceof Tir) {
+			this.moveToPosition(new Vector3d(1000, 10, 1000));
+			this.actif = false;
 		}
-		if(this.collisionDetected()) {
-			this.moveToPosition(new Vector3d(1000, 1000, 1000));
-		}
-		*/
+
 	}
 
 	private void rotateToJoueur() {
