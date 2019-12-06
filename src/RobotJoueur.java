@@ -8,10 +8,12 @@ public class RobotJoueur extends Agent {
 
 	private double angleDirection;
 	private Environnement env;
+	private Options options;
 
-	RobotJoueur(Vector3d position, String name, Environnement env) {
+	RobotJoueur(Vector3d position, String name, Environnement env, Options options) {
 		super(position, name);
 		this.env = env;
+		this.options = options;
 		this.setCanBeTraversed(true);
 		Thread t = new Thread(new ClavierCheck(this));
 		t.start();
@@ -24,19 +26,19 @@ public class RobotJoueur extends Agent {
 	}
 
 	private void rotationGauche() {
-		this.rotateY(2.0/360 * 2 * Math.PI);
-		if(this.angleDirection + 2.0/360 * 2 * Math.PI >= 2 * Math.PI + 0.01 || this.angleDirection + 2.0/360 * 2 * Math.PI >= 2 * Math.PI - 0.01) { // Pour la marge d'erreur double
+		this.rotateY(1.0/360 * 2 * Math.PI);
+		if(this.angleDirection + 1.0/360 * 2 * Math.PI >= 2 * Math.PI + 0.01 || this.angleDirection + 1.0/360 * 2 * Math.PI >= 2 * Math.PI - 0.01) { // Pour la marge d'erreur double
 			this.angleDirection = 0;
 		}else {
-			this.angleDirection += 2.0/360 * 2 * Math.PI;
+			this.angleDirection += 1.0/360 * 2 * Math.PI;
 		}
 	}
 	private void rotationDroite() {
-		this.rotateY(-2.0/360 * 2 * Math.PI);
-		if(this.angleDirection - 2.0/360 * 2 * Math.PI <= 0) { // Pour la marge d'erreur double
+		this.rotateY(-1.0/360 * 2 * Math.PI);
+		if(this.angleDirection - 1.0/360 * 2 * Math.PI <= 0) { // Pour la marge d'erreur double
 			this.angleDirection = 2 * Math.PI;
 		}else {
-			this.angleDirection -= 2.0/360 * 2 * Math.PI;
+			this.angleDirection -= 1.0/360 * 2 * Math.PI;
 		}
 	}
 
@@ -90,7 +92,7 @@ public class RobotJoueur extends Agent {
 					rbtJoueur.rotationGauche();
 				}
 				try {
-					Thread.sleep(15);
+					Thread.sleep(5);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

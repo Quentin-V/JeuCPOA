@@ -1,8 +1,5 @@
-import com.sun.j3d.utils.geometry.Cylinder;
 import simbad.sim.Agent;
-import simbad.sim.CherryAgent;
 
-import javax.media.j3d.Appearance;
 import javax.vecmath.Color3f;
 import javax.vecmath.Vector3d;
 
@@ -14,9 +11,7 @@ public class Tir extends Agent {
 		super(position, name);
 		this.setColor(new Color3f(255,255,0));
 		this.actif = false;
-		Appearance appearance = new Appearance();
-		this.body = new Cylinder(100, 100, appearance);
-		this.body.setCollidable(true);
+		this.radius = 0.15F;
 	}
 
 	public void performBehavior() {
@@ -38,5 +33,6 @@ public class Tir extends Agent {
 	void tirer() {
 		this.actif = true;
 	}
+
 
 }

@@ -10,7 +10,13 @@ class Environnement extends EnvironmentDescription {
 
 	private double vitesseEnnemi;
 
-	Environnement(int nbMunitions, int nbEnnemis, double vitesseEnnemi) {
+	private Options options;
+
+	Environnement(int nbMunitions, int nbEnnemis, double vitesseEnnemi, Options options) {
+		this.options = options;
+
+
+		// Configuration de lalumière et des murs
 		this.light1SetPosition(-20,8,0);
 		add(new Wall(new Vector3d(0,0,10), 20, 5, this));
 		add(new Wall(new Vector3d(0,0,-10), 20, 5, this));
@@ -20,7 +26,9 @@ class Environnement extends EnvironmentDescription {
 		mur = new Wall(new Vector3d(-10,0,0), 20, 5, this);
 		mur.rotate90(1);
 		add(mur);
-		RobotJoueur rbtJoueur = new RobotJoueur(new Vector3d(0, 0.25, 0), "Joueur", this);
+
+		// Ajout des robots
+		RobotJoueur rbtJoueur = new RobotJoueur(new Vector3d(0, 0.25, 0), "Joueur", this, options);
 		add(rbtJoueur);
 		this.vitesseEnnemi = vitesseEnnemi;
 		for(int i = 0; i < nbEnnemis; i++) {
