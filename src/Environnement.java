@@ -15,7 +15,6 @@ class Environnement extends EnvironmentDescription {
 	Environnement(int nbMunitions, int nbEnnemis, double vitesseEnnemi, Options options) {
 		this.options = options;
 
-
 		// Configuration de lalumière et des murs
 		this.light1SetPosition(-20,8,0);
 		add(new Wall(new Vector3d(0,0,10), 20, 5, this));

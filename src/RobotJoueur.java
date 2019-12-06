@@ -45,34 +45,40 @@ public class RobotJoueur extends Agent {
 	private static class ClavierCheck implements Runnable {
 
 		RobotJoueur rbtJoueur;
-		boolean flGPressed;
-		boolean flDPressed;
+		boolean GPressed;
+		boolean DPressed;
 		boolean aTire;
+
 		ClavierCheck(RobotJoueur rbtJoueur) {
 			this.rbtJoueur = rbtJoueur;
-			flGPressed = false;
-			flDPressed = false;
+			GPressed = false;
+			DPressed = false;
 			this.aTire = false;
+
+			int tG = rbtJoueur.options.toucheGauche;
+			int tD = rbtJoueur.options.toucheDroite;
+			int tT = rbtJoueur.options.toucheTir;
+
 			KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(ke -> {
 				synchronized (ClavierCheck.class) {
 					switch (ke.getID()) {
 						case KeyEvent.KEY_PRESSED:
-							if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
-								flGPressed = true;
-							}else if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
-								flDPressed = true;
-							}else if (ke.getKeyCode() == KeyEvent.VK_UP && !aTire) {
+							if (ke.getKeyCode() == tG) {
+								GPressed = true;
+							}else if (ke.getKeyCode() == tD) {
+								DPressed = true;
+							}else if (ke.getKeyCode() == tT && !aTire) {
 								aTire = true;
 								rbtJoueur.env.tirer(rbtJoueur.angleDirection);
 							}
 							break;
 
 						case KeyEvent.KEY_RELEASED:
-							if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
-								flGPressed = false;
-							}else if(ke.getKeyCode() == KeyEvent.VK_RIGHT) {
-								flDPressed = false;
-							}else if(ke.getKeyCode() == KeyEvent.VK_UP) {
+							if (ke.getKeyCode() == tG) {
+								GPressed = false;
+							}else if(ke.getKeyCode() == tD) {
+								DPressed = false;
+							}else if(ke.getKeyCode() == tT) {
 								aTire = false;
 							}
 							break;
@@ -86,9 +92,9 @@ public class RobotJoueur extends Agent {
 		public void run() {
 			//noinspection InfiniteLoopStatement
 			while (true) {
-				if (flDPressed) {
+				if (DPressed) {
 					rbtJoueur.rotationDroite();
-				} else if (flGPressed) {
+				} else if (GPressed) {
 					rbtJoueur.rotationGauche();
 				}
 				try {

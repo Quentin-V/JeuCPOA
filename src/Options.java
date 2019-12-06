@@ -1,9 +1,9 @@
 import java.awt.event.KeyEvent;
 
-public class Options {
-	private int toucheGauche;
-	private int toucheDroite;
-	private int toucheTir;
+class Options {
+	int toucheGauche;
+	int toucheDroite;
+	int toucheTir;
 	Options() {
 		toucheGauche = KeyEvent.VK_LEFT;
 		toucheDroite = KeyEvent.VK_RIGHT;
@@ -20,17 +20,5 @@ public class Options {
 
 	void setToucheTir(int toucheTir) {
 		this.toucheTir = toucheTir;
-	}
-
-	int getToucheGauche() {
-		return toucheGauche;
-	}
-
-	int getToucheDroite() {
-		return toucheDroite;
-	}
-
-	int getToucheTir() {
-		return toucheTir;
 	}
 }

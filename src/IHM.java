@@ -1,3 +1,5 @@
+import simbad.gui.Simbad;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -5,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class IHM extends JFrame implements ActionListener {
 
-	Options options;
+	private Options options;
 
 	private IHM() {
 
@@ -33,6 +35,9 @@ public class IHM extends JFrame implements ActionListener {
 		JButton btnCustom = new JButton("Custom");
 		pnlGame.add(btnCustom);
 
+		btnCampagne.addActionListener(this);
+		btnCampagne.setActionCommand("campagne");
+
 		JPanel pnlRegles = new JPanel();
 		pnlRegles.add(new JButton("Regles"));
 
@@ -59,6 +64,9 @@ public class IHM extends JFrame implements ActionListener {
 		switch (actionEvent.getActionCommand()) {
 			case "options":
 				new FrameOptions(this.options);
+				break;
+			case "campagne":
+				new Simbad(new Environnement(10, 10, 1, options), false);
 				break;
 		}
 	}
