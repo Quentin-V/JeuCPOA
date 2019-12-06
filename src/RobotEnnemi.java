@@ -6,7 +6,7 @@ import javax.vecmath.Vector3d;
 
 public class RobotEnnemi extends Agent {
 
-	private boolean actif;
+	boolean actif;
 	private double vitesse;
 
 	RobotEnnemi(double vitesse, Vector3d position, String name) {

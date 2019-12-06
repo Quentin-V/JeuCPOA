@@ -10,10 +10,11 @@ class Environnement extends EnvironmentDescription {
 
 	private double vitesseEnnemi;
 
-	private Options options;
+	ArrayList<RobotEnnemi> ennemis;
 
 	Environnement(int nbMunitions, int nbEnnemis, double vitesseEnnemi, Options options) {
-		this.options = options;
+
+		this.ennemis = new ArrayList<>();
 
 		// Configuration de lalumière et des murs
 		this.light1SetPosition(-20,8,0);
@@ -45,7 +46,9 @@ class Environnement extends EnvironmentDescription {
 		randX = Math.random() < 0.5 ? -(randX+5) : (randX+5);
 		int randZ = (int) (Math.random() * 4);
 		randZ = Math.random() < 0.5 ? -(randZ+5) : (randZ+5);
-		this.add(new RobotEnnemi(this.vitesseEnnemi, new Vector3d(randX, 0.25, randZ), "e" + n));
+		RobotEnnemi ennemi = new RobotEnnemi(this.vitesseEnnemi, new Vector3d(randX, 0.25, randZ), "e" + n);
+		ennemis.add(ennemi);
+		this.add(ennemi);
 	}
 
 	void tirer(double angleDirection) {
@@ -56,6 +59,13 @@ class Environnement extends EnvironmentDescription {
 			leBonTir.tirer();
 			++numTir;
 		}
+	}
+
+	boolean partieFinie() {
+		for(RobotEnnemi ennemi : ennemis) {
+			if(ennemi.actif) return false;
+		}
+		return true;
 	}
 
 }

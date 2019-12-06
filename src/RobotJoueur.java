@@ -23,6 +23,10 @@ public class RobotJoueur extends Agent {
 		if(anOtherAgentIsVeryNear() && getVeryNearAgent() instanceof RobotEnnemi) {
 			System.exit(0);
 		}
+		if(getCounter() % 10 == 0 && env.partieFinie()) {
+			System.out.println("Bravo, vous avez gagné");
+			System.exit(0);
+		}
 	}
 
 	private void rotationGauche() {

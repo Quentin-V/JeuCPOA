@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class IHM extends JFrame implements ActionListener {
 
-	private Options options;
+	Options options;
 
 	private IHM() {
 
@@ -38,6 +38,9 @@ public class IHM extends JFrame implements ActionListener {
 		btnCampagne.addActionListener(this);
 		btnCampagne.setActionCommand("campagne");
 
+		btnCustom.addActionListener(this);
+		btnCustom.setActionCommand("custom");
+
 		JPanel pnlRegles = new JPanel();
 		pnlRegles.add(new JButton("Regles"));
 
@@ -67,6 +70,9 @@ public class IHM extends JFrame implements ActionListener {
 				break;
 			case "campagne":
 				new Simbad(new Environnement(10, 10, 1, options), false);
+				break;
+			case "custom":
+				new FrameCustom(this);
 				break;
 		}
 	}
