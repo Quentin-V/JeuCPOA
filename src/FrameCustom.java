@@ -5,12 +5,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Frame pour créer une partir personnalisée
+ */
 public class FrameCustom extends JFrame implements ActionListener {
 
 	private IHM ihm;
 
 	private JTextField tfNbMun, tfNbRobots, tfVitesse;
 
+	/**
+	 * Constructeur qui crée la frame
+	 * @param ihm l'IHM de la partie
+	 */
 	FrameCustom(IHM ihm) {
 		this.ihm = ihm;
 
@@ -48,6 +55,10 @@ public class FrameCustom extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Méthode qui crée la partie personnalisée si tous les paramètres sont bons
+	 * @param actionEvent l'évènement déclenché
+	 */
 	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
 		try {
@@ -55,10 +66,12 @@ public class FrameCustom extends JFrame implements ActionListener {
 			int nbRobots   = Integer.parseInt(tfNbRobots.getText().replaceAll(" ", ""));
 			double vitesse = Double.parseDouble(tfVitesse.getText().replaceAll(" ", ""));
 
-			new Simbad(new Environnement(nbMun, nbRobots, vitesse, ihm.options), false);
+			Simbad s = new Simbad(new Environnement(nbMun, nbRobots, vitesse, ihm.options, "classic"), false);
+			s.setSize(1280, 720);
+			s.setTitle("Simbad Shooter Custom");
+
 			this.ihm.dispose();
 			this.dispose();
-
 		}catch(Exception e) {
 			new FrameErreur("Un des paramètres n'est pas correct");
 		}

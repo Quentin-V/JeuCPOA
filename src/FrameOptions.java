@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Frame utilisée pour modifier les touches de jeu par l'utilisateur
+ */
 public class FrameOptions extends JFrame implements ActionListener {
 
 	private Options options;
@@ -11,6 +14,10 @@ public class FrameOptions extends JFrame implements ActionListener {
 	private boolean attendTouche;
 	private char attend;
 
+	/**
+	 * Constructeur de la frame
+	 * @param options les options reliées au jeu
+	 */
 	FrameOptions(Options options) {
 
 		this.options = options;
@@ -73,6 +80,9 @@ public class FrameOptions extends JFrame implements ActionListener {
 		}
 	}
 
+	/**
+	 * Pour savoir lorsque l'utilisateur appuie sur un e touche
+	 */
 	private static class ClavierCheck implements Runnable {
 
 		FrameOptions frameOptions;

@@ -4,15 +4,29 @@ import simbad.sim.Wall;
 import javax.vecmath.Vector3d;
 import java.util.ArrayList;
 
+/**
+ * Environnement simbad
+ */
 class Environnement extends EnvironmentDescription {
 	private ArrayList<Tir> tirs;
 	private int numTir;
 
 	private double vitesseEnnemi;
 
-	ArrayList<RobotEnnemi> ennemis;
+	private ArrayList<RobotEnnemi> ennemis;
 
-	Environnement(int nbMunitions, int nbEnnemis, double vitesseEnnemi, Options options) {
+	String mode;
+
+	/**
+	 * Constructeur de l'environnement, crée tous les éléments nécessaires au lancement d'une partie
+	 * @param nbMunitions nombre de munitions du robot joueur
+	 * @param nbEnnemis nombre d'ennemis
+	 * @param vitesseEnnemi vitesse des ennemis
+	 * @param options options de la partie --> Touches de jeu
+	 */
+	Environnement(int nbMunitions, int nbEnnemis, double vitesseEnnemi, Options options, String mode) {
+
+		this.mode = mode;
 
 		this.ennemis = new ArrayList<>();
 
@@ -41,16 +55,29 @@ class Environnement extends EnvironmentDescription {
 		for(Tir tir : tirs) this.add(tir);
 	}
 
+	/**
+	 * Ajoute un ennemi
+	 * @param n numéro du robot
+	 */
 	private void addEnnemi(int n) {
-		int randX = (int) (Math.random() * 4);
-		randX = Math.random() < 0.5 ? -(randX+5) : (randX+5);
-		int randZ = (int) (Math.random() * 4);
-		randZ = Math.random() < 0.5 ? -(randZ+5) : (randZ+5);
-		RobotEnnemi ennemi = new RobotEnnemi(this.vitesseEnnemi, new Vector3d(randX, 0.25, randZ), "e" + n);
+		int[] randPos = randXZ();
+		RobotEnnemi ennemi = new RobotEnnemi(this.vitesseEnnemi, new Vector3d(randPos[0], 0.25, randPos[1]), "e" + n, this);
 		ennemis.add(ennemi);
 		this.add(ennemi);
 	}
 
+	int[] randXZ() {
+		int randX = (int) (Math.random() * 4);
+		randX = Math.random() < 0.5 ? -(randX+5) : (randX+5);
+		int randZ = (int) (Math.random() * 4);
+		randZ = Math.random() < 0.5 ? -(randZ+5) : (randZ+5);
+		return new int[] {randX, randZ};
+	}
+
+	/**
+	 * Envoie un tir sur le terrain
+	 * @param angleDirection direction du tir
+	 */
 	void tirer(double angleDirection) {
 		if(numTir != tirs.size()) {
 			Tir leBonTir = tirs.get(numTir);
@@ -58,9 +85,19 @@ class Environnement extends EnvironmentDescription {
 			leBonTir.rotateY(angleDirection);
 			leBonTir.tirer();
 			++numTir;
+		}else if(this.mode.equals("time")) {
+			numTir = 0;
+			Tir leBonTir = tirs.get(numTir);
+			leBonTir.resetPos();
+			leBonTir.rotateY(angleDirection);
+			leBonTir.tirer();
 		}
 	}
 
+	/**
+	 * Renvoie true si tous les ennemis ne sont plus actifs
+	 * @return l'état de la partie
+	 */
 	boolean partieFinie() {
 		for(RobotEnnemi ennemi : ennemis) {
 			if(ennemi.actif) return false;

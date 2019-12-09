@@ -1,5 +1,8 @@
 import java.awt.event.KeyEvent;
 
+/**
+ * Classe contenant les touches de jeu
+ */
 class Options {
 	int toucheGauche;
 	int toucheDroite;

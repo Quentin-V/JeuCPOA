@@ -1,24 +1,38 @@
-import com.sun.j3d.utils.geometry.Cylinder;
 import simbad.sim.*;
 
 import javax.vecmath.Color3f;
+import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 
+
+/**
+ * Classe des robots ennemis
+ */
 public class RobotEnnemi extends Agent {
 
 	boolean actif;
 	private double vitesse;
+	private Environnement env;
 
-	RobotEnnemi(double vitesse, Vector3d position, String name) {
+	/**
+	 * Constructeur du robot ennemi
+	 * @param vitesse la vitesse du robot
+	 * @param position la position initiale du robot
+	 * @param name le nom du robot
+	 */
+	RobotEnnemi(double vitesse, Vector3d position, String name, Environnement env) {
 		super(position, name);
 		this.setColor(new Color3f(255, 0, 0));
-		this.body = new Cylinder(3, 3);
-		this.body.setPickable(true);
-		this.body.setCollidable(true);
 		this.actif = true;
 		this.vitesse = vitesse;
+		this.env = env;
 	}
+
+	/**
+	 * Action que le robot va effectuer pendant la simulation
+	 */
 	public void performBehavior() {
+		if(this.name.equals("e1")) System.out.println("V1 : " + v1.x + " | " + v1.z);
 
 		if(this.actif)
 			this.setTranslationalVelocity(this.vitesse);
@@ -26,17 +40,27 @@ public class RobotEnnemi extends Agent {
 			this.setTranslationalVelocity(0);
 
 		if(this.getCounter() == 1) {
-			rotateToJoueur();
+			firstRotate();
 		}
 
 		if(anOtherAgentIsVeryNear() && this.getVeryNearAgent() instanceof Tir) {
-			this.moveToPosition(new Vector3d(1000, 10, 1000));
-			this.actif = false;
+			if(this.env.mode.equals("classic")) {
+				this.moveToPosition(new Vector3d(1000, 10, 1000));
+				this.actif = false;
+			}else if(this.env.mode.equals("time")) {
+				int[] randPos = this.env.randXZ();
+				this.moveToPosition(new Vector3d(4, 0.25, 4));
+				this.rotateY(90.0/360 *2*Math.PI + Math.atan(this.v1.x/this.v1.z));
+			}
 		}
-
 	}
 
-	private void rotateToJoueur() {
+
+
+	/**
+	 * Méthode utilisée en début de simulation pour que les robots se dirigent vers le centre
+	 */
+	private void firstRotate() {
 		double x  = this.v1.x;
 		double z  = this.v1.z;
 

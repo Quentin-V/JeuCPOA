@@ -3,6 +3,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
+/**
+ * Classe qui crée une frame d'avertissement avec un message passé en paramètre du constructeur
+ */
 class FrameErreur extends JFrame {
 	FrameErreur(String s) {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
