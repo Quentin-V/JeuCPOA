@@ -79,6 +79,7 @@ class Environnement extends EnvironmentDescription {
 	 * @param angleDirection direction du tir
 	 */
 	void tirer(double angleDirection) {
+		SoundEffects.sounds.get("tir").play();
 		if(numTir != tirs.size()) {
 			Tir leBonTir = tirs.get(numTir);
 			leBonTir.resetPos();

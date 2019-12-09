@@ -76,6 +76,8 @@ public class RobotJoueur extends Agent {
 		boolean DPressed;
 		boolean aTire;
 
+		boolean playingSound;
+
 		/**
 		 * Constructeur qui crée le KeyboardFocusManager nécessaire pour connaitre les touches appuyées par l'utilisateur
 		 * @param rbtJoueur le robot du joueur
@@ -85,6 +87,7 @@ public class RobotJoueur extends Agent {
 			GPressed = false;
 			DPressed = false;
 			this.aTire = false;
+
 
 			int tG = rbtJoueur.options.toucheGauche; // Touche pour tourner à gauche
 			int tD = rbtJoueur.options.toucheDroite; // Touche pour tourner à droite
@@ -96,8 +99,14 @@ public class RobotJoueur extends Agent {
 						case KeyEvent.KEY_PRESSED: // Lorsque l'on appuie sur une touche
 							if (ke.getKeyCode() == tG) {
 								GPressed = true;
+								if(!this.playingSound)
+									SoundEffects.sounds.get("tourner").play();
+								this.playingSound = true;
 							}else if (ke.getKeyCode() == tD) {
 								DPressed = true;
+								if(!this.playingSound)
+									SoundEffects.sounds.get("tourner").play();
+								this.playingSound = true;
 							}else if (ke.getKeyCode() == tT && !aTire) {
 								aTire = true; // Pour éviter de tirer à l'infini en restant appuyé
 								rbtJoueur.env.tirer(rbtJoueur.angleDirection);
@@ -107,8 +116,12 @@ public class RobotJoueur extends Agent {
 						case KeyEvent.KEY_RELEASED:
 							if (ke.getKeyCode() == tG) {
 								GPressed = false;
+								SoundEffects.sounds.get("tourner").stop();
+								this.playingSound = false;
 							}else if(ke.getKeyCode() == tD) {
 								DPressed = false;
+								SoundEffects.sounds.get("tourner").stop();
+								this.playingSound = false;
 							}else if(ke.getKeyCode() == tT) {
 								aTire = false;
 							}

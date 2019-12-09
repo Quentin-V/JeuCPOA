@@ -1,4 +1,3 @@
-import javafx.scene.media.AudioClip;
 import simbad.gui.Simbad;
 
 import javax.imageio.ImageIO;
@@ -7,7 +6,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.nio.file.Paths;
 
 /**
  * Classe qui doit être lancée par l'utilisateur pour démarrer ses parties
@@ -82,8 +80,7 @@ public class IHM extends JFrame implements ActionListener {
 
 		this.setVisible(true);
 
-		AudioClip clip = new AudioClip(Paths.get(getClass().getResource("/simbad_shooter.wav").toString().substring(6)).toUri().toString());
-		clip.play();
+		SoundEffects.sounds.get("launcher").play();
 	}
 
 	private static class Background extends JPanel {
