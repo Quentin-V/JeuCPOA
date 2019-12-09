@@ -24,6 +24,7 @@ public class FrameCustom extends JFrame implements ActionListener {
 		this.setTitle("Custom");
 		this.setSize(500,170);
 		this.setLocation(250, 400);
+		this.setResizable(false);
 
 		JPanel pnlCentre = new JPanel(new GridLayout(3,2));
 
@@ -72,7 +73,7 @@ public class FrameCustom extends JFrame implements ActionListener {
 
 			this.ihm.dispose();
 			this.dispose();
-		}catch(Exception e) {
+		}catch(NumberFormatException e) {
 			new FrameErreur("Un des paramètres n'est pas correct");
 		}
 	}

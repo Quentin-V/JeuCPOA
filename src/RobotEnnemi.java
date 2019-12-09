@@ -1,7 +1,6 @@
 import simbad.sim.*;
 
 import javax.vecmath.Color3f;
-import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 
 
@@ -32,7 +31,6 @@ public class RobotEnnemi extends Agent {
 	 * Action que le robot va effectuer pendant la simulation
 	 */
 	public void performBehavior() {
-		if(this.name.equals("e1")) System.out.println("V1 : " + v1.x + " | " + v1.z);
 
 		if(this.actif)
 			this.setTranslationalVelocity(this.vitesse);
@@ -43,7 +41,7 @@ public class RobotEnnemi extends Agent {
 			firstRotate();
 		}
 
-		if(anOtherAgentIsVeryNear() && this.getVeryNearAgent() instanceof Tir) {
+		if(this.getVeryNearAgent() instanceof Tir) {
 			if(this.env.mode.equals("classic")) {
 				this.moveToPosition(new Vector3d(1000, 10, 1000));
 				this.actif = false;

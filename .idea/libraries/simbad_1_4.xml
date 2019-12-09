@@ -4,6 +4,8 @@
       <root url="jar://C:/java_lib/simbad-1.4.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://C:/java_lib/simbad-1.4.jar!/" />
+    </SOURCES>
   </library>
 </component>

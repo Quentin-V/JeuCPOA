@@ -1,9 +1,13 @@
+import javafx.scene.media.AudioClip;
 import simbad.gui.Simbad;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.nio.file.Paths;
 
 /**
  * Classe qui doit être lancée par l'utilisateur pour démarrer ses parties
@@ -21,25 +25,32 @@ public class IHM extends JFrame implements ActionListener {
 
 		this.setTitle("CPOA");
 		this.setLocation(100,200);
-		this.setSize(400, 200);
+		this.setSize(640, 360);
 
-		this.setResizable(false);
+		this.setResizable(true);
+
+		Background bg = new Background();
+
+		this.setContentPane(bg);
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		this.setLayout(new GridLayout(4, 1));
+		this.setLayout(null);
 
 		JPanel pnlTitre = new JPanel(new BorderLayout());
 		JLabel titre = new JLabel("SIMBAD SHOOTER !");
-		pnlTitre.add(titre);
+		titre.setBounds(260, 10, 120, 20);
+		//pnlTitre.add(titre);
 
-		JPanel pnlGame = new JPanel();
+		//JPanel pnlGame = new JPanel();
 		JButton btnCampagne = new JButton("Campagne");
-		pnlGame.add(btnCampagne);
-		JButton btnTime = new JButton("Time");
-		pnlGame.add(btnTime);
+		btnCampagne.setBounds(140, 233, 100, 40);
+		//pnlGame.add(btnCampagne);
+		//JButton btnTime = new JButton("Time");
+		//pnlGame.add(btnTime);
 		JButton btnCustom = new JButton("Custom");
-		pnlGame.add(btnCustom);
+		btnCustom.setBounds(380, 233, 100, 40);
+		//pnlGame.add(btnCustom);
 
 		btnCampagne.addActionListener(this);
 		btnCampagne.setActionCommand("campagne");
@@ -47,24 +58,52 @@ public class IHM extends JFrame implements ActionListener {
 		btnCustom.addActionListener(this);
 		btnCustom.setActionCommand("custom");
 
-		btnTime.addActionListener(this);
-		btnTime.setActionCommand("time");
+		//btnTime.addActionListener(this);
+		//btnTime.setActionCommand("time");
 
-		JPanel pnlRegles = new JPanel();
-		pnlRegles.add(new JButton("Regles"));
+		//JPanel pnlRegles = new JPanel();
+		//pnlRegles.add(new JButton("Regles"));
+		JButton btnRegles = new JButton("Règles");
+		btnRegles.setBounds(264, 228, 90, 30);
 
-		JPanel pnlOptions = new JPanel();
+		//JPanel pnlOptions = new JPanel();
 		JButton btnOptions = new JButton("Options");
 		btnOptions.addActionListener(this);
 		btnOptions.setActionCommand("options");
-		pnlOptions.add(btnOptions);
+		btnOptions.setBounds(264, 264, 90, 30);
 
-		this.add(pnlTitre);
-		this.add(pnlGame);
-		this.add(pnlRegles);
-		this.add(pnlOptions);
+		//pnlOptions.add(btnOptions);
+
+		this.add(titre);
+		this.add(btnCampagne);
+		this.add(btnCustom);
+		this.add(btnRegles);
+		this.add(btnOptions);
 
 		this.setVisible(true);
+
+		AudioClip clip = new AudioClip(Paths.get(getClass().getResource("/simbad_shooter.wav").toString().substring(6)).toUri().toString());
+		clip.play();
+	}
+
+	private static class Background extends JPanel {
+
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+
+			Graphics2D g2 = (Graphics2D)g;
+
+			Image im = null;
+			try {
+				im = ImageIO.read(getClass().getResource("/bg_simbad_shooter.png"));
+				im = im.getScaledInstance(640, 360, Image.SCALE_DEFAULT);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			g2.drawImage(im, 0, 0, null);
+		}
 	}
 
 	/**
@@ -84,19 +123,21 @@ public class IHM extends JFrame implements ActionListener {
 				new FrameOptions(this.options);
 				break;
 			case "campagne":
-				Simbad s = new Simbad(new Environnement(10, 10, 1, options, "classic"), false);
+				Simbad s = new Simbad(new Environnement(15, 10, 1, options, "classic"), false);
 				s.setSize(1280, 720);
 				s.setTitle("Simbad Shooter Classic");
+				this.dispose();
 				break;
 			case "time":
 				Simbad s1 = new Simbad(new Environnement(20, 2, 0.5, options, "time"), false);
 				s1.setSize(1280, 720);
 				s1.setTitle("Simbad Shooter Time");
+				this.dispose();
 				break;
 			case "custom":
 				new FrameCustom(this);
+				this.dispose();
 				break;
 		}
-		this.dispose();
 	}
 }
