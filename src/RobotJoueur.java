@@ -12,7 +12,9 @@ public class RobotJoueur extends Agent {
 
 	private double angleDirection;
 	private Environnement env;
-	private Options options;
+	Options options;
+
+	boolean fin = false;
 
 	/**
 	 * Constructeur du robot du joueur
@@ -33,12 +35,14 @@ public class RobotJoueur extends Agent {
 	 * Action que le robot effectuera pendant la simulation
 	 */
 	public void performBehavior() {
-		if(anOtherAgentIsVeryNear() && getVeryNearAgent() instanceof RobotEnnemi) {
-			System.exit(0);
+		if(anOtherAgentIsVeryNear() && getVeryNearAgent() instanceof RobotEnnemi && !fin) {
+			fin = true;
+			new IHM(options);
 		}
-		if(getCounter() % 10 == 0 && env.partieFinie()) {
+		if(getCounter() % 10 == 0 && env.partieFinie() && !fin) {
 			System.out.println("Bravo, vous avez gagné");
-			System.exit(0);
+			fin = true;
+			new IHM(options);
 		}
 	}
 

@@ -5,7 +5,7 @@ import java.awt.event.*;
 /**
  * Frame utilisée pour modifier les touches de jeu par l'utilisateur
  */
-public class FrameOptions extends JFrame implements ActionListener {
+public class FrameOptions extends JFrame implements ActionListener, WindowListener {
 
 	private Options options;
 
@@ -13,12 +13,15 @@ public class FrameOptions extends JFrame implements ActionListener {
 	private JLabel  lblTG, lblTD, lblTT;
 	private boolean attendTouche;
 	private char attend;
+	private Thread t;
 
 	/**
 	 * Constructeur de la frame
 	 * @param options les options reliées au jeu
 	 */
 	FrameOptions(Options options) {
+
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		this.options = options;
 
@@ -31,9 +34,9 @@ public class FrameOptions extends JFrame implements ActionListener {
 		this.lblTG = new JLabel("Touche rotation gauche");
 		this.lblTD = new JLabel("Touche rotation droite");
 		this.lblTT = new JLabel("Touche de tir");
-		this.btnTG = new JButton("Gauche");
-		this.btnTD = new JButton("Droite");
-		this.btnTT = new JButton("Haut");
+		this.btnTG = new JButton(KeyEvent.getKeyText(options.toucheGauche));
+		this.btnTD = new JButton(KeyEvent.getKeyText(options.toucheDroite));
+		this.btnTT = new JButton(KeyEvent.getKeyText(options.toucheTir));
 
 		this.btnTG.addActionListener(this);
 		this.btnTG.setActionCommand("tg");
@@ -53,7 +56,7 @@ public class FrameOptions extends JFrame implements ActionListener {
 		this.add(this.lblTT);
 		this.add(this.btnTT);
 
-		Thread t = new Thread(new ClavierCheck(this));
+		t = new Thread(new ClavierCheck(this));
 		t.start();
 
 		this.setVisible(true);
@@ -138,6 +141,7 @@ public class FrameOptions extends JFrame implements ActionListener {
 						this.frameOptions.btnTD.setEnabled(true);
 						this.frameOptions.btnTT.setEnabled(true);
 						pressed = false;
+						frameOptions.attendTouche = false;
 					}else {
 						pressed = false;
 					}
@@ -150,5 +154,17 @@ public class FrameOptions extends JFrame implements ActionListener {
 			}
 		}
 	}
+
+	public void windowClosing(WindowEvent e)
+	{
+		t.interrupt();
+	}
+
+	public void windowClosed(WindowEvent e){}
+	public void windowDeactivated(WindowEvent e){}
+	public void windowActivated(WindowEvent e){}
+	public void windowDeiconified(WindowEvent e){}
+	public void windowIconified(WindowEvent e){}
+	public void windowOpened(WindowEvent e){}
 
 }

@@ -3,7 +3,7 @@ import java.awt.event.KeyEvent;
 /**
  * Classe contenant les touches de jeu
  */
-class Options {
+public class Options {
 	int toucheGauche;
 	int toucheDroite;
 	int toucheTir;

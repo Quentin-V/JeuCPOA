@@ -4,11 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 /**
  * Frame pour créer une partir personnalisée
  */
-public class FrameCustom extends JFrame implements ActionListener {
+public class FrameCustom extends JFrame implements ActionListener, WindowListener {
 
 	private IHM ihm;
 
@@ -77,4 +79,16 @@ public class FrameCustom extends JFrame implements ActionListener {
 			new FrameErreur("Un des paramètres n'est pas correct");
 		}
 	}
+
+	public void windowClosing(WindowEvent e)
+	{
+		new IHM(ihm.options);
+	}
+
+	public void windowClosed(WindowEvent e){}
+	public void windowDeactivated(WindowEvent e){}
+	public void windowActivated(WindowEvent e){}
+	public void windowDeiconified(WindowEvent e){}
+	public void windowIconified(WindowEvent e){}
+	public void windowOpened(WindowEvent e){}
 }

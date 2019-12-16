@@ -14,8 +14,10 @@ class Environnement extends EnvironmentDescription {
 	private double vitesseEnnemi;
 
 	private ArrayList<RobotEnnemi> ennemis;
+	private RobotJoueur rbtJoueur;
 
 	String mode;
+
 
 	/**
 	 * Constructeur de l'environnement, crée tous les éléments nécessaires au lancement d'une partie
@@ -42,7 +44,7 @@ class Environnement extends EnvironmentDescription {
 		add(mur);
 
 		// Ajout des robots
-		RobotJoueur rbtJoueur = new RobotJoueur(new Vector3d(0, 0.25, 0), "Joueur", this, options);
+		rbtJoueur = new RobotJoueur(new Vector3d(0, 0.25, 0), "Joueur", this, options);
 		add(rbtJoueur);
 		this.vitesseEnnemi = vitesseEnnemi;
 		for(int i = 0; i < nbEnnemis; i++) {
@@ -104,6 +106,15 @@ class Environnement extends EnvironmentDescription {
 			if(ennemi.actif) return false;
 		}
 		return true;
+	}
+
+	public boolean getFin(){
+		return rbtJoueur.fin;
+	}
+
+	@Override
+	public void accueil() {
+		new IHM(rbtJoueur.options);
 	}
 
 }

@@ -17,11 +17,11 @@ public class IHM extends JFrame implements ActionListener {
 	/**
 	 * Constructeur qui lance le launcher
 	 */
-	private IHM() {
+	IHM() {
 
 		this.options = new Options();
 
-		this.setTitle("CPOA");
+		this.setTitle("Simbad shooter");
 		this.setLocation(100,200);
 		this.setSize(640, 360);
 
@@ -35,9 +35,12 @@ public class IHM extends JFrame implements ActionListener {
 
 		this.setLayout(null);
 
+		Font font = new Font("Arial", Font.PLAIN, 36);
+
 		JPanel pnlTitre = new JPanel(new BorderLayout());
 		JLabel titre = new JLabel("SIMBAD SHOOTER !");
-		titre.setBounds(260, 10, 120, 20);
+		titre.setFont(font);
+		titre.setBounds(140, 10, 380, 40);
 		//pnlTitre.add(titre);
 
 		//JPanel pnlGame = new JPanel();
@@ -61,7 +64,9 @@ public class IHM extends JFrame implements ActionListener {
 
 		//JPanel pnlRegles = new JPanel();
 		//pnlRegles.add(new JButton("Regles"));
-		JButton btnRegles = new JButton("Règles");
+		JButton btnRegles = new JButton("Regles");
+		btnRegles.addActionListener(this);
+		btnRegles.setActionCommand("regles");
 		btnRegles.setBounds(264, 228, 90, 30);
 
 		//JPanel pnlOptions = new JPanel();
@@ -81,6 +86,11 @@ public class IHM extends JFrame implements ActionListener {
 		this.setVisible(true);
 
 		SoundEffects.sounds.get("launcher").play();
+	}
+
+	IHM(Options options) {
+		this();
+		this.options = options;
 	}
 
 	private static class Background extends JPanel {
@@ -135,6 +145,12 @@ public class IHM extends JFrame implements ActionListener {
 				new FrameCustom(this);
 				this.dispose();
 				break;
+			case "regles" :
+				String texte = "SimbadShooter est un jeu de tir dans lequel le joueur (robot vert) doit se defendre face a des ennemis (robots rouges) \n Pour controler le joueur, utilisez les fleches directionnelles : \n         - droite / gauche pour pivoter \n         - haut pour tirer \n Ces touches sont modifiables dans les options";
+				System.out.print("debug");
+				//new JOptionPane();
+				JOptionPane.showMessageDialog(null, texte, "Regles", JOptionPane.PLAIN_MESSAGE);;
+
 		}
 	}
 }
