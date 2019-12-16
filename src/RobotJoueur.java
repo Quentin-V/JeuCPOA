@@ -10,11 +10,11 @@ import java.awt.event.KeyEvent;
  */
 public class RobotJoueur extends Agent {
 
-	private double angleDirection;
-	private Environnement env;
-	Options options;
+	private double angleDirection;// Direction du robot
+	private Environnement env; // Environnement Simbad
+	Options options; // Options (touches)
 
-	boolean fin = false;
+	boolean fin = false; // Si la partie est finie ou non
 
 	/**
 	 * Constructeur du robot du joueur
@@ -76,11 +76,11 @@ public class RobotJoueur extends Agent {
 	private static class ClavierCheck implements Runnable {
 
 		RobotJoueur rbtJoueur;
-		boolean GPressed;
-		boolean DPressed;
-		boolean aTire;
+		boolean GPressed; // Si la touche pour tourner à gauche est pressée
+		boolean DPressed; // Si la touche pour tourner à droite est pressée
+		boolean aTire;    // Si le joueur a tiré
 
-		boolean playingSound;
+		boolean playingSound; // Si un son est en cours
 
 		/**
 		 * Constructeur qui crée le KeyboardFocusManager nécessaire pour connaitre les touches appuyées par l'utilisateur

@@ -88,12 +88,6 @@ class Environnement extends EnvironmentDescription {
 			leBonTir.rotateY(angleDirection);
 			leBonTir.tirer();
 			++numTir;
-		}else if(this.mode.equals("time")) {
-			numTir = 0;
-			Tir leBonTir = tirs.get(numTir);
-			leBonTir.resetPos();
-			leBonTir.rotateY(angleDirection);
-			leBonTir.tirer();
 		}
 	}
 

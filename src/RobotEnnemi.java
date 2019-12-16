@@ -9,8 +9,17 @@ import javax.vecmath.Vector3d;
  */
 public class RobotEnnemi extends Agent {
 
+	/**
+	 * Si le robot est en vie
+	 */
 	boolean actif;
+	/**
+	 * La vitesse du robot
+	 */
 	private double vitesse;
+	/**
+	 * L'environnement attaché au robot
+	 */
 	private Environnement env;
 
 	/**

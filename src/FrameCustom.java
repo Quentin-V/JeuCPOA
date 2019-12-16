@@ -12,9 +12,9 @@ import java.awt.event.WindowListener;
  */
 public class FrameCustom extends JFrame implements ActionListener, WindowListener {
 
-	private IHM ihm;
+	private IHM ihm; // L'ihm reliée à cette Frame
 
-	private JTextField tfNbMun, tfNbRobots, tfVitesse;
+	private JTextField tfNbMun, tfNbRobots, tfVitesse; // Les textfields
 
 	/**
 	 * Constructeur qui crée la frame
@@ -45,6 +45,7 @@ public class FrameCustom extends JFrame implements ActionListener, WindowListene
 		btnConfirmer = new JButton("Lancer la partie");
 		btnConfirmer.addActionListener(this);
 
+		// Ajout des composants dans le panel centre
 		pnlCentre.add(lblNbMun);
 		pnlCentre.add(tfNbMun);
 		pnlCentre.add(lblNbRobots);
@@ -52,6 +53,7 @@ public class FrameCustom extends JFrame implements ActionListener, WindowListene
 		pnlCentre.add(lblVitesse);
 		pnlCentre.add(tfVitesse);
 
+		// Ajout des composants dans la frame
 		this.add(pnlCentre);
 		this.add(btnConfirmer, "South");
 
@@ -80,10 +82,15 @@ public class FrameCustom extends JFrame implements ActionListener, WindowListene
 		}
 	}
 
+	/**
+	 * @param e Le WindowEvent
+	 * Recrée le launcher lorsque l'on ferme la frame.
+	 */
 	public void windowClosing(WindowEvent e)
 	{
 		new IHM(ihm.options);
 	}
+
 
 	public void windowClosed(WindowEvent e){}
 	public void windowDeactivated(WindowEvent e){}

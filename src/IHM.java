@@ -17,11 +17,11 @@ public class IHM extends JFrame implements ActionListener {
 	/**
 	 * Constructeur qui lance le launcher
 	 */
-	IHM() {
+	private IHM() {
 
-		this.options = new Options();
+		this.options = new Options(); // Crée une nouvelle option
 
-		this.setTitle("Simbad shooter");
+		this.setTitle("Simbad Shooter");
 		this.setLocation(100,200);
 		this.setSize(640, 360);
 
@@ -37,21 +37,14 @@ public class IHM extends JFrame implements ActionListener {
 
 		Font font = new Font("Arial", Font.PLAIN, 36);
 
-		JPanel pnlTitre = new JPanel(new BorderLayout());
 		JLabel titre = new JLabel("SIMBAD SHOOTER !");
 		titre.setFont(font);
 		titre.setBounds(140, 10, 380, 40);
-		//pnlTitre.add(titre);
 
-		//JPanel pnlGame = new JPanel();
 		JButton btnCampagne = new JButton("Campagne");
 		btnCampagne.setBounds(140, 233, 100, 40);
-		//pnlGame.add(btnCampagne);
-		//JButton btnTime = new JButton("Time");
-		//pnlGame.add(btnTime);
 		JButton btnCustom = new JButton("Custom");
 		btnCustom.setBounds(380, 233, 100, 40);
-		//pnlGame.add(btnCustom);
 
 		btnCampagne.addActionListener(this);
 		btnCampagne.setActionCommand("campagne");
@@ -59,23 +52,13 @@ public class IHM extends JFrame implements ActionListener {
 		btnCustom.addActionListener(this);
 		btnCustom.setActionCommand("custom");
 
-		//btnTime.addActionListener(this);
-		//btnTime.setActionCommand("time");
-
-		//JPanel pnlRegles = new JPanel();
-		//pnlRegles.add(new JButton("Regles"));
-		JButton btnRegles = new JButton("Regles");
-		btnRegles.addActionListener(this);
-		btnRegles.setActionCommand("regles");
+		JButton btnRegles = new JButton("Règles");
 		btnRegles.setBounds(264, 228, 90, 30);
 
-		//JPanel pnlOptions = new JPanel();
 		JButton btnOptions = new JButton("Options");
 		btnOptions.addActionListener(this);
 		btnOptions.setActionCommand("options");
 		btnOptions.setBounds(264, 264, 90, 30);
-
-		//pnlOptions.add(btnOptions);
 
 		this.add(titre);
 		this.add(btnCampagne);
@@ -85,14 +68,21 @@ public class IHM extends JFrame implements ActionListener {
 
 		this.setVisible(true);
 
-		SoundEffects.sounds.get("launcher").play();
+		SoundEffects.sounds.get("launcher").play(); // Jouer le son du launcher
 	}
 
+	/**
+	 * Crée un launcher avec une option définie
+	 * @param options une classe option déjà définie
+	 */
 	IHM(Options options) {
 		this();
 		this.options = options;
 	}
 
+	/**
+	 * Classe qui sert à afficher l'image de fond
+	 */
 	private static class Background extends JPanel {
 
 		@Override
@@ -148,7 +138,6 @@ public class IHM extends JFrame implements ActionListener {
 			case "regles" :
 				String texte = "SimbadShooter est un jeu de tir dans lequel le joueur (robot vert) doit se defendre face a des ennemis (robots rouges) \n Pour controler le joueur, utilisez les fleches directionnelles : \n         - droite / gauche pour pivoter \n         - haut pour tirer \n Ces touches sont modifiables dans les options";
 				System.out.print("debug");
-				//new JOptionPane();
 				JOptionPane.showMessageDialog(null, texte, "Regles", JOptionPane.PLAIN_MESSAGE);;
 
 		}
